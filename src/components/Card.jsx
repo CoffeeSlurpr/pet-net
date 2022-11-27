@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 const Card = () => {
   return (
-    <Link to="/#">
+    <Link to="/1">
       <div className="card-shadow flex h-72 w-52 items-center justify-center rounded-3xl bg-cat bg-cover bg-center text-white transition duration-150 hover:rotate-2 hover:scale-110 hover:ease-in-out">
         <div className="flex h-full w-full flex-col justify-between p-3">
           <div className="flex items-center">
-            <MapPinIcon height={"1rem"} title="Location" />
+            <MapPinIcon style={{ height: "1rem" }} title="Location" />
             <div className="text-sm">Budapest</div>
           </div>
 

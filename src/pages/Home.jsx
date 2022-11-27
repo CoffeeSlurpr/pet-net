@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div>
+    <>
       <div className="flex w-full justify-evenly">
-        <div className="custom-radius relative right-[150px] flex h-[600px] w-[1150px] bg-gradient-to-t from-orange-400 to-orange-300">
+        <div className="left-border-radius relative right-[150px] flex h-[600px] w-[1150px] bg-gradient-to-t from-orange-400 to-orange-300">
           <img
             src={puppy}
             alt="puppy"
@@ -19,9 +19,11 @@ const Home = () => {
               <div className="text-slate-700">I'm looking</div>
               <div>for a family</div>
             </div>
-            <Button className="bg-white hover:bg-white hover:shadow-white">
-              <Link to="/search">I'm wooferested</Link>
-            </Button>
+            <Link to="/search">
+              <Button className="bg-white hover:bg-slate-700 hover:text-white">
+                I'm wooferested
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -64,7 +66,7 @@ const Home = () => {
         </div>
 
         <div className="flex flex-col items-center space-y-8">
-          <div className="w-1/2 space-y-1 text-center text-slate-700">
+          <div className="w-1/2 space-y-2 text-center text-slate-700">
             <div className="text-5xl font-semibold">Find a loyal companion</div>
             <div>
               {/* Random pet fact might go here */}
@@ -82,7 +84,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

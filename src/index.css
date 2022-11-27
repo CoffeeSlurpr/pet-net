@@ -8,8 +8,17 @@
   font-family: "Poppins", sans-serif;
 }
 
-.custom-radius {
+html,
+body {
+  @apply h-full bg-peach-cream-100;
+}
+
+.left-border-radius {
   border-radius: 31% 26% 56% 44% / 51% 31% 69% 49%;
+}
+
+.right-border-radius {
+  border-radius: 31% 10% 50% 50% / 40% 33% 67% 60%;
 }
 
 .card-shadow {
