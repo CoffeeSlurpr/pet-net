@@ -38,8 +38,6 @@ export const TokenProvider = ({ children }) => {
     refreshToken();
   }, [location]);
 
-  console.log(token);
-
   return (
     <TokenContext.Provider value={{ token }}>{children}</TokenContext.Provider>
   );
