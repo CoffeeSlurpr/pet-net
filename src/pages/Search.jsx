@@ -18,10 +18,26 @@ const Search = () => {
         headers: { Authorization: `${token.tokenType} ${token.token}` },
       })
       .then((res) => {
-        setOptions(res.data);
+        mapOptionsToDropdown(res.data);
       })
       .catch((error) => console.log(error));
   }, []);
+
+  const mapOptionsToDropdown = (data) => {
+    data?.types?.map((option) => {
+      const arr = Object.values(option);
+      for (let i = 1; i < arr.length; i++) {
+        try {
+          arr[i].map((element) => {
+            setOptions((current) => [
+              ...current,
+              { type: arr[0], attribute: element },
+            ]);
+          });
+        } catch (error) {}
+      }
+    });
+  };
 
   return (
     <>
@@ -29,7 +45,7 @@ const Search = () => {
         <div className="absolute left-4 top-4 z-10">
           <Link to={"/"}>
             <Button className="bg-white hover:bg-slate-700 hover:text-white">
-              Take me back
+              To the Home page
             </Button>
           </Link>
         </div>

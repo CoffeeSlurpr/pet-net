@@ -22,35 +22,14 @@ const SearchBar = ({ icon, className, placeholder, options }) => {
     };
   }, []);
 
-  const handleSearchClick = (e) => {
-    console.log("clicked");
+  const handleSearchClick = (type, attribute) => {
+    console.log(type, attribute);
   };
 
   const handleOptionClick = (event) => {
     setIsOpen(false);
     setQuery(event.target.innerText);
   };
-
-  const mapOptionsToDropdown = () => {
-    if (!options) return;
-
-    const mapped = [];
-
-    options?.types?.map((option) => {
-      const arr = Object.values(option);
-      for (let i = 1; i < arr.length; i++) {
-        try {
-          arr[i].map((element) => {
-            mapped.push(`${arr[0]}-${element}`);
-          });
-        } catch (error) {}
-      }
-    });
-
-    return mapped;
-  };
-
-  const mappedOptions = mapOptionsToDropdown();
 
   return (
     <div ref={searchRef} className="flex w-full gap-[2px]">
@@ -73,17 +52,19 @@ const SearchBar = ({ icon, className, placeholder, options }) => {
             className={`absolute z-10 mt-1 w-full overflow-y-auto rounded-[2rem] rounded-r-none border-2 border-slate-500 bg-white p-2 shadow-lg`}
           >
             <ul className="font-semibold text-slate-500">
-              {mappedOptions.map((option, index) => {
+              {options.map((option, index) => {
                 if (index < 10) {
                   return (
                     <li
                       className="cursor-pointer rounded-full rounded-r-none p-1 hover:bg-black hover:bg-opacity-10"
                       key={index}
-                      onClick={(event) => {
-                        handleOptionClick(event);
+                      onClick={() => {
+                        handleOptionClick(option.type, option.attribute);
                       }}
                     >
-                      <div className="px-10">{option}</div>
+                      <div className="px-10">
+                        {option.type} - {option.attribute}
+                      </div>
                     </li>
                   );
                 }
@@ -93,7 +74,7 @@ const SearchBar = ({ icon, className, placeholder, options }) => {
         )}
       </div>
       <Button
-        onClick={(e) => handleSearchClick(e)}
+        onClick={handleSearchClick}
         className="rounded-l-none ring-1 ring-slate-400 focus:ring-2 focus:ring-slate-500"
       >
         Search
