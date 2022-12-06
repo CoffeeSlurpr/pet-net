@@ -11,6 +11,7 @@ import petFinderApi from "../api/pet-finder-api";
 const Search = () => {
   const { token } = useContext(TokenContext);
   const [options, setOptions] = useState([]);
+  const [data, setData] = useState({});
 
   useEffect(() => {
     petFinderApi
@@ -22,6 +23,29 @@ const Search = () => {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  useEffect(() => {
+    //for testing
+    console.log(data);
+  }, [data]);
+
+  const fetchAnimals = (params) => {
+    const { type, attribute, attributeType } = params;
+
+    if (params) {
+      petFinderApi
+        .get("/animals", {
+          headers: { Authorization: `${token.tokenType} ${token.token}` },
+          params: { type: type, [attributeType]: attribute, limit: 25 },
+        })
+        .then((res) => {
+          setData(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
 
   const mapOptionsToDropdown = (data) => {
     data?.types?.map((option) => {
@@ -76,9 +100,10 @@ const Search = () => {
         />
       </div>
       <div className="grid grid-cols-5 gap-8 pb-48">
-        {[...Array(25)].map((e, i) => {
-          return <Card key={i} />;
-        })}
+        {data.animals &&
+          data.animals.map((animal) => {
+            return <Card key={animal.id} />;
+          })}
       </div>
     </>
   );
