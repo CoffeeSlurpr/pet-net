@@ -25,16 +25,18 @@ const Search = () => {
 
   const mapOptionsToDropdown = (data) => {
     data?.types?.map((option) => {
-      const arr = Object.values(option);
-      for (let i = 1; i < arr.length; i++) {
-        try {
-          arr[i].map((element) => {
-            setOptions((current) => [
-              ...current,
-              { type: arr[0], attribute: element },
-            ]);
-          });
-        } catch (error) {}
+      const keys = Object.keys(option);
+      const values = Object.values(option);
+
+      for (let i = 1; i < values.length - 1; i++) {
+        const petType = values[0];
+
+        values[i].map((attribute) => {
+          return setOptions((prev) => [
+            ...prev,
+            { type: petType, attributeType: keys[i], attribute: attribute },
+          ]);
+        });
       }
     });
   };
@@ -66,6 +68,7 @@ const Search = () => {
       </div>
       <div className="relative -top-20 flex max-w-xl">
         <SearchBar
+          onSearch={fetchAnimals}
           options={options}
           icon={<MagnifyingGlassCircleIcon height={"28px"} />}
           placeholder="Search Cat, Dog, Black etc."
