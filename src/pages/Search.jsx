@@ -7,11 +7,13 @@ import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
 import TokenContext from "../context/TokenContext";
 import petFinderApi from "../api/pet-finder-api";
+import Spinner from "../components/Spinner";
 
 const Search = () => {
   const { token } = useContext(TokenContext);
   const [options, setOptions] = useState([]);
   const [data, setData] = useState({});
+  const [isDataLoading, setIsDataLoading] = useState(false);
 
   useEffect(() => {
     petFinderApi
@@ -30,9 +32,12 @@ const Search = () => {
   }, [data]);
 
   const fetchAnimals = (params) => {
+    setIsDataLoading(true);
+
     const { type, attribute, attributeType } = params;
 
     if (params) {
+      console.log(params);
       petFinderApi
         .get("/animals", {
           headers: { Authorization: `${token.tokenType} ${token.token}` },
@@ -40,6 +45,7 @@ const Search = () => {
         })
         .then((res) => {
           setData(res.data);
+          setIsDataLoading(true);
         })
         .catch((error) => {
           console.log(error);
@@ -58,7 +64,11 @@ const Search = () => {
         values[i].map((attribute) => {
           return setOptions((prev) => [
             ...prev,
-            { type: petType, attributeType: keys[i], attribute: attribute },
+            {
+              type: petType,
+              attributeType: keys[i].slice(0, -1),
+              attribute: attribute,
+            },
           ]);
         });
       }
@@ -90,7 +100,7 @@ const Search = () => {
           />
         </div>
       </div>
-      <div className="relative -top-20 flex max-w-xl">
+      <div className="relative -top-20 z-10 flex max-w-xl">
         <SearchBar
           onSearch={fetchAnimals}
           options={options}
@@ -99,12 +109,15 @@ const Search = () => {
           className="rounded-r-none"
         />
       </div>
-      <div className="grid grid-cols-5 gap-8 pb-48">
-        {data.animals &&
-          data.animals.map((animal) => {
-            return <Card key={animal.id} />;
+      {!data.animals ? (
+        isDataLoading && <Spinner />
+      ) : (
+        <div className="grid grid-cols-5 gap-8 pb-48">
+          {data.animals.map((animal) => {
+            return <Card key={animal.id} data={animal} />;
           })}
-      </div>
+        </div>
+      )}
     </>
   );
 };

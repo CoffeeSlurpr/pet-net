@@ -21,7 +21,7 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'cat': "url('/src/assets/images/cat.jpg')",
+        'noImage': "url('/src/assets/images/no-image.jpg')",
       },
       colors: {
         "peach-cream": {

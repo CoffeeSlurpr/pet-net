@@ -57,11 +57,11 @@ const Home = () => {
           </div>
 
           <div className="flex items-center justify-center gap-6">
+            {/* <Card />
             <Card />
             <Card />
             <Card />
-            <Card />
-            <Card />
+            <Card /> */}
           </div>
         </div>
 
@@ -76,11 +76,11 @@ const Home = () => {
           </div>
 
           <div className="flex items-center justify-center gap-4">
+            {/* <Card />
             <Card />
             <Card />
             <Card />
-            <Card />
-            <Card />
+            <Card /> */}
           </div>
         </div>
       </div>
