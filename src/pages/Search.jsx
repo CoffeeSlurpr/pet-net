@@ -26,26 +26,22 @@ const Search = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  useEffect(() => {
-    //for testing
-    console.log(data);
-  }, [data]);
-
   const fetchAnimals = (params) => {
     setIsDataLoading(true);
 
     const { type, attribute, attributeType } = params;
 
     if (params) {
-      console.log(params);
       petFinderApi
         .get("/animals", {
-          headers: { Authorization: `${token.tokenType} ${token.token}` },
+          headers: {
+            Authorization: `${token.tokenType} ${token.token}`,
+          },
           params: { type: type, [attributeType]: attribute, limit: 25 },
         })
         .then((res) => {
           setData(res.data);
-          setIsDataLoading(true);
+          setIsDataLoading(false);
         })
         .catch((error) => {
           console.log(error);
@@ -85,7 +81,7 @@ const Search = () => {
             </Button>
           </Link>
         </div>
-        <div className="right-border-radius relative flex h-[450px] w-[1500px] items-center bg-gradient-to-t from-orange-400 to-orange-300">
+        <div className="center-border-radius relative flex h-[450px] w-[1500px] items-center bg-gradient-to-t from-orange-400 to-orange-300">
           <div className="relative left-20 -top-10 text-start text-7xl font-semibold">
             <div className="text-white">
               <div className="text-slate-700">Find a new friend</div>
