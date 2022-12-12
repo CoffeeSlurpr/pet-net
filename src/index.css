@@ -17,8 +17,12 @@ body {
   border-radius: 31% 26% 56% 44% / 51% 31% 69% 49%;
 }
 
-.right-border-radius {
+.center-border-radius {
   border-radius: 31% 10% 50% 50% / 40% 33% 67% 60%;
+}
+
+.right-border-radius {
+  border-radius: 42% 40% 30% 70% / 44% 52% 48% 56%;
 }
 
 .card-shadow {
