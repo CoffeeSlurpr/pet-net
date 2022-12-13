@@ -28,7 +28,7 @@ export const TokenProvider = ({ children }) => {
   useEffect(() => {
     const foundToken = JSON.parse(localStorage.getItem("token"));
 
-    if (!foundToken || token.expires - new Date().getTime() < 10) {
+    if (!foundToken || foundToken.expires - new Date().getTime() < 10) {
       fetchToken();
     } else {
       setToken(foundToken);
