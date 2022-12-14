@@ -18,7 +18,7 @@ const Pet = () => {
     setIsLoading(true);
 
     if (token && Object.keys(token).length !== 0) {
-      //temporary fix for fix
+      //temporary fix for FIXME
       petFinderApi
         .get(`/animals/${id}`, {
           headers: {
