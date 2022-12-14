@@ -16,21 +16,21 @@ const Home = () => {
   useEffect(() => {
     setIsLoading(true);
 
-    const fetchCats = petFinderApi.get("/animals", {
-      headers: {
-        Authorization: `${token.tokenType} ${token.token}`,
-      },
-      params: { sort: "recent", type: "Cat", limit: 5 },
-    });
+    if (token !== null) {
+      const fetchCats = petFinderApi.get("/animals", {
+        headers: {
+          Authorization: `${token.tokenType} ${token.token}`,
+        },
+        params: { sort: "recent", type: "Cat", limit: 5 },
+      });
 
-    const fetchDogs = petFinderApi.get("/animals", {
-      headers: {
-        Authorization: `${token.tokenType} ${token.token}`,
-      },
-      params: { sort: "recent", type: "Dog", limit: 5 },
-    });
+      const fetchDogs = petFinderApi.get("/animals", {
+        headers: {
+          Authorization: `${token.tokenType} ${token.token}`,
+        },
+        params: { sort: "recent", type: "Dog", limit: 5 },
+      });
 
-    if (token && Object.keys(token).length !== 0) {
       Promise.all([fetchCats, fetchDogs])
         .then((res) => {
           setCats(res[0].data.animals);
