@@ -5,7 +5,7 @@ import axios from "axios";
 const TokenContext = createContext();
 
 export const TokenProvider = ({ children }) => {
-  const [token, setToken] = useState({});
+  const [token, setToken] = useState(null);
   let location = useLocation();
 
   const fetchToken = async () => {
@@ -28,7 +28,12 @@ export const TokenProvider = ({ children }) => {
   useEffect(() => {
     const foundToken = JSON.parse(localStorage.getItem("token"));
 
-    if (!foundToken || foundToken.expires - new Date().getTime() < 10) {
+    console.log((foundToken.expires - new Date().getTime()) / 1000);
+
+    if (
+      !foundToken ||
+      (foundToken.expires - new Date().getTime()) / 1000 < 10
+    ) {
       fetchToken();
     } else {
       setToken(foundToken);
