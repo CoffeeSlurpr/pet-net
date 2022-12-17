@@ -7,9 +7,11 @@ import { TokenProvider } from "./context/TokenContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <TokenProvider>
-      <App />
-    </TokenProvider>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <TokenProvider>
+        <App />
+      </TokenProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );

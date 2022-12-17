@@ -15,16 +15,25 @@ const Search = () => {
   const [data, setData] = useState({});
   const [isDataLoading, setIsDataLoading] = useState(false);
 
+  const fetchTypes = async () => {
+    const response = await petFinderApi.get("/types", {
+      headers: { Authorization: `${token.tokenType} ${token.token}` },
+    });
+
+    return response;
+  };
+
   useEffect(() => {
-    petFinderApi
-      .get("/types", {
-        headers: { Authorization: `${token.tokenType} ${token.token}` },
-      })
-      .then((res) => {
-        mapOptionsToDropdown(res.data);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+    if (token) {
+      fetchTypes()
+        .then((res) => {
+          mapOptionsToDropdown(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [token]);
 
   const fetchAnimals = (params) => {
     setIsDataLoading(true);

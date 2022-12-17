@@ -7,11 +7,12 @@ const Card = ({ data }) => {
     <Link to={`/pet/${data.id}`}>
       <div
         className={`card-shadow relative flex h-72 w-52 items-center justify-center overflow-hidden rounded-3xl bg-cover bg-center text-white transition duration-150 hover:rotate-2 hover:scale-110 hover:ease-in-out ${
-          data.photos.length === 0 && "bg-noImage"
+          !data.primary_photo_cropped && "bg-noImage"
         }`}
         style={{
           backgroundImage:
-            data.photos.length > 0 && `url('${data.photos[0].full}')`,
+            data.primary_photo_cropped &&
+            `url('${data.primary_photo_cropped.full}')`,
         }}
       >
         <div className="flex h-full w-full flex-col justify-between p-3">

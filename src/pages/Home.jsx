@@ -9,29 +9,37 @@ import Spinner from "../components/Spinner";
 
 const Home = () => {
   const { token } = useContext(TokenContext);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [cats, setCats] = useState([]);
   const [dogs, setDogs] = useState([]);
 
+  const fetchCats = async () => {
+    return await petFinderApi.get("/animals", {
+      headers: {
+        Authorization: `${token.tokenType} ${token.token}`,
+      },
+      params: { sort: "recent", type: "Cat", limit: 5 },
+    });
+  };
+
+  const fetchDogs = async () => {
+    return await petFinderApi.get("/animals", {
+      headers: {
+        Authorization: `${token.tokenType} ${token.token}`,
+      },
+      params: { sort: "recent", type: "Dog", limit: 5 },
+    });
+  };
+
+  const fetchAnimals = async () => {
+    return await Promise.all([fetchCats(), fetchDogs()]);
+  };
+
   useEffect(() => {
-    setIsLoading(true);
+    if (token) {
+      setIsLoading(true);
 
-    if (token !== null) {
-      const fetchCats = petFinderApi.get("/animals", {
-        headers: {
-          Authorization: `${token.tokenType} ${token.token}`,
-        },
-        params: { sort: "recent", type: "Cat", limit: 5 },
-      });
-
-      const fetchDogs = petFinderApi.get("/animals", {
-        headers: {
-          Authorization: `${token.tokenType} ${token.token}`,
-        },
-        params: { sort: "recent", type: "Dog", limit: 5 },
-      });
-
-      Promise.all([fetchCats, fetchDogs])
+      fetchAnimals()
         .then((res) => {
           setCats(res[0].data.animals);
           setDogs(res[1].data.animals);
@@ -114,7 +122,6 @@ const Home = () => {
                   Find a loyal companion
                 </div>
                 <div>
-                  {/* Random pet fact might go here */}
                   Adopting a pet comes with great responsibility. Please make
                   sure can you provide to your buddy.
                 </div>

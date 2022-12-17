@@ -1,12 +1,10 @@
 import React, { useState, createContext, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 const TokenContext = createContext();
 
 export const TokenProvider = ({ children }) => {
   const [token, setToken] = useState(null);
-  let location = useLocation();
 
   const fetchToken = async () => {
     await axios
@@ -19,6 +17,7 @@ export const TokenProvider = ({ children }) => {
         };
 
         localStorage.setItem("token", JSON.stringify(newToken));
+        setToken(newToken);
       })
       .catch((error) => {
         console.log(error);
@@ -28,17 +27,15 @@ export const TokenProvider = ({ children }) => {
   useEffect(() => {
     const foundToken = JSON.parse(localStorage.getItem("token"));
 
-    console.log((foundToken.expires - new Date().getTime()) / 1000);
-
     if (
       !foundToken ||
-      (foundToken.expires - new Date().getTime()) / 1000 < 10
+      (foundToken?.expires - new Date().getTime()) / 1000 < 10
     ) {
       fetchToken();
     } else {
       setToken(foundToken);
     }
-  }, [location.pathname]);
+  }, []);
 
   return (
     <TokenContext.Provider value={{ token }}>{children}</TokenContext.Provider>
