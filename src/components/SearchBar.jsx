@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import Button from "./Button";
+import { toast } from "react-toastify";
 
-const SearchBar = ({ icon, className, placeholder, options, onSearch }) => {
+const SearchBar = ({
+  icon,
+  inputClassName,
+  buttonClassName,
+  placeholder,
+  options,
+  onSearch,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState({});
@@ -50,11 +58,21 @@ const SearchBar = ({ icon, className, placeholder, options, onSearch }) => {
   };
 
   const handleSearchClick = () => {
-    onSearch(selected);
+    if (!selected?.attribute) {
+      toast.error("Please select an option from the dropdown", {
+        theme: "colored",
+        pauseOnHover: false,
+      });
+    } else {
+      onSearch(selected);
+    }
   };
 
   return (
-    <div ref={searchRef} className="flex w-full gap-[2px]">
+    <div
+      ref={searchRef}
+      className="flex w-full gap-[3px] rounded-full bg-slate-400"
+    >
       <div className="relative w-full drop-shadow-lg">
         {/* Search Input */}
         <div className="absolute mt-[10px] ml-3 h-4 text-slate-500">{icon}</div>
@@ -65,7 +83,7 @@ const SearchBar = ({ icon, className, placeholder, options, onSearch }) => {
           onChange={handleSearchChange}
           value={query}
           autoComplete="off"
-          className={`w-full rounded-full border-none p-3 px-14 font-semibold text-slate-500 outline-none ring-1 ring-slate-400 focus:ring-2 focus:ring-slate-500 ${className}`}
+          className={`w-full rounded-full rounded-r-none border-none p-3 px-14 font-semibold text-slate-500 outline-none ring-1 ring-slate-400 focus:ring-2 focus:ring-slate-500 ${inputClassName}`}
         />
 
         {/* Search Dropdown */}
@@ -97,7 +115,7 @@ const SearchBar = ({ icon, className, placeholder, options, onSearch }) => {
       </div>
       <Button
         onClick={handleSearchClick}
-        className="rounded-l-none ring-1 ring-slate-400 focus:ring-2 focus:ring-slate-500"
+        className={`rounded-l-none ring-1 ring-slate-400 focus:ring-2 focus:ring-slate-500 ${buttonClassName}`}
       >
         Search
       </Button>
