@@ -15,8 +15,6 @@ const Pet = () => {
   const [pet, setPet] = useState({});
   const navigate = useNavigate();
 
-  console.log(pet);
-
   const fetchAnimal = async () => {
     const response = await petFinderApi.get(`/animals/${id}`, {
       headers: {

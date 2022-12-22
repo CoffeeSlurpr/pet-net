@@ -18,7 +18,7 @@ const Home = () => {
       headers: {
         Authorization: `${token.tokenType} ${token.token}`,
       },
-      params: { sort: "recent", type: "Cat", limit: 5 },
+      params: { type: "Cat", limit: 5 },
     });
   };
 
@@ -27,7 +27,7 @@ const Home = () => {
       headers: {
         Authorization: `${token.tokenType} ${token.token}`,
       },
-      params: { sort: "recent", type: "Dog", limit: 5 },
+      params: { type: "Dog", limit: 5 },
     });
   };
 

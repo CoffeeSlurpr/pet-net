@@ -3,6 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
 import Pet from "./pages/Pet";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
@@ -12,6 +14,7 @@ const App = () => {
         <Route path="/search" element={<Search />} />
         <Route path="/pet/:id" element={<Pet />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 };

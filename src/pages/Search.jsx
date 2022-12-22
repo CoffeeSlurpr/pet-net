@@ -12,7 +12,7 @@ import Spinner from "../components/Spinner";
 const Search = () => {
   const { token } = useContext(TokenContext);
   const [options, setOptions] = useState([]);
-  const [data, setData] = useState({});
+  const [animals, setAnimals] = useState([]);
   const [isDataLoading, setIsDataLoading] = useState(false);
 
   const fetchTypes = async () => {
@@ -36,11 +36,11 @@ const Search = () => {
   }, [token]);
 
   const fetchAnimals = (params) => {
-    setIsDataLoading(true);
-
     const { type, attribute, attributeType } = params;
 
-    if (params) {
+    if (params && token) {
+      setIsDataLoading(true);
+
       petFinderApi
         .get("/animals", {
           headers: {
@@ -49,7 +49,7 @@ const Search = () => {
           params: { type: type, [attributeType]: attribute, limit: 25 },
         })
         .then((res) => {
-          setData(res.data);
+          setAnimals(res.data.animals);
           setIsDataLoading(false);
         })
         .catch((error) => {
@@ -111,14 +111,13 @@ const Search = () => {
           options={options}
           icon={<MagnifyingGlassCircleIcon height={"28px"} />}
           placeholder="Search Cat, Dog, Black etc."
-          className="rounded-r-none"
         />
       </div>
-      {!data.animals ? (
-        isDataLoading && <Spinner />
+      {isDataLoading ? (
+        <Spinner />
       ) : (
         <div className="grid grid-cols-5 gap-8 pb-48">
-          {data.animals.map((animal) => {
+          {animals.map((animal) => {
             return <Card key={animal.id} data={animal} />;
           })}
         </div>
