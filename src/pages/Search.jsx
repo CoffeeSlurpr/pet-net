@@ -1,23 +1,37 @@
 import React, { useState, useEffect, useContext } from "react";
 import darkCat from "../assets/images/dark-cat.png";
-import Button from "../components/Button";
 import { Link } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
+import petFinderApi from "../api/pet-finder-api";
+import TokenContext from "../context/TokenContext";
 import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
-import TokenContext from "../context/TokenContext";
-import petFinderApi from "../api/pet-finder-api";
 import Spinner from "../components/Spinner";
+import Button from "../components/Button";
 
 const Search = () => {
   const { token } = useContext(TokenContext);
   const [options, setOptions] = useState([]);
-  const [animals, setAnimals] = useState([]);
+  const [pets, setPets] = useState({});
   const [isDataLoading, setIsDataLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(null);
+  const [searchParams, setSearchParams] = useState({});
 
   const fetchTypes = async () => {
     const response = await petFinderApi.get("/types", {
       headers: { Authorization: `${token.tokenType} ${token.token}` },
+    });
+
+    return response;
+  };
+
+  const fetchAnimals = async (params) => {
+    const response = await petFinderApi.get("/animals", {
+      headers: {
+        Authorization: `${token.tokenType} ${token.token}`,
+      },
+      params: params,
     });
 
     return response;
@@ -35,31 +49,28 @@ const Search = () => {
     }
   }, [token]);
 
-  const fetchAnimals = (params) => {
-    const { type, attribute, attributeType } = params;
-
-    if (params && token) {
+  useEffect(() => {
+    if (token) {
       setIsDataLoading(true);
 
-      petFinderApi
-        .get("/animals", {
-          headers: {
-            Authorization: `${token.tokenType} ${token.token}`,
-          },
-          params: { type: type, [attributeType]: attribute, limit: 25 },
-        })
+      fetchAnimals({
+        type: searchParams.type,
+        [searchParams.attributeType]: searchParams.attribute,
+        limit: 20,
+        page: currentPage,
+      })
         .then((res) => {
-          setAnimals(res.data.animals);
+          setPets(res.data);
           setIsDataLoading(false);
         })
         .catch((error) => {
           console.log(error);
         });
     }
-  };
+  }, [token, currentPage, searchParams]);
 
   const mapOptionsToDropdown = (data) => {
-    data?.types?.map((option) => {
+    data.types?.map((option) => {
       const keys = Object.keys(option);
       const values = Object.values(option);
 
@@ -78,6 +89,10 @@ const Search = () => {
         });
       }
     });
+  };
+
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected + 1);
   };
 
   return (
@@ -107,7 +122,7 @@ const Search = () => {
       </div>
       <div className="relative -top-20 z-10 flex max-w-xl">
         <SearchBar
-          onSearch={fetchAnimals}
+          onSearch={setSearchParams}
           options={options}
           icon={<MagnifyingGlassCircleIcon height={"28px"} />}
           placeholder="Search Cat, Dog, Black etc."
@@ -116,12 +131,27 @@ const Search = () => {
       {isDataLoading ? (
         <Spinner />
       ) : (
-        <div className="grid grid-cols-5 gap-8 pb-48">
-          {animals.map((animal) => {
+        <div className="grid grid-cols-5 gap-8">
+          {pets.animals?.map((animal) => {
             return <Card key={animal.id} data={animal} />;
           })}
         </div>
       )}
+      <ReactPaginate
+        containerClassName={"container"}
+        activeLinkClassName={"item active"}
+        nextLinkClassName={"item"}
+        previousLinkClassName={"item"}
+        pageLinkClassName={"item"}
+        breakLabel="..."
+        nextLabel="next"
+        previousLabel="previous"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={2}
+        pageCount={!pets ? 0 : pets.pagination.total_pages}
+        renderOnZeroPageCount={null}
+      />
     </>
   );
 };
