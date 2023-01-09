@@ -30,7 +30,7 @@ body {
     0 -50px 20px 0 rgba(0, 0, 0, 0.55) inset;
 }
 
-/* Pagination*/
+/* Pagination */
 
 .item {
   @apply flex w-fit cursor-pointer rounded-full border border-transparent bg-white px-4 py-2 text-center text-base font-semibold uppercase tracking-wider text-slate-700 shadow-lg drop-shadow-lg transition duration-150 ease-in-out hover:bg-orange-400 hover:text-white hover:shadow-orange-300;
@@ -42,4 +42,10 @@ body {
 
 .active {
   @apply bg-orange-400 shadow-orange-300;
+}
+
+/* swiper */
+
+.swiper {
+  @apply p-5 !important;
 }

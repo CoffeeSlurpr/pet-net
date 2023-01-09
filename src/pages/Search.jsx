@@ -14,7 +14,7 @@ const Search = () => {
   const { token } = useContext(TokenContext);
   const [options, setOptions] = useState([]);
   const [pets, setPets] = useState({});
-  const [isDataLoading, setIsDataLoading] = useState(false);
+  const [isDataLoading, setIsDataLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(null);
   const [searchParams, setSearchParams] = useState({});
 
@@ -149,7 +149,7 @@ const Search = () => {
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
         marginPagesDisplayed={2}
-        pageCount={!pets ? 0 : pets.pagination.total_pages}
+        pageCount={!pets ? 0 : pets.pagination?.total_pages}
         renderOnZeroPageCount={null}
       />
     </>

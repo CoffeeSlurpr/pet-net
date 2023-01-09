@@ -5,6 +5,7 @@ import Search from "./pages/Search";
 import Pet from "./pages/Pet";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "swiper/css";
 
 const App = () => {
   return (
