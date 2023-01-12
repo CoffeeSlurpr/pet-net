@@ -92,13 +92,13 @@ const Search = () => {
   };
 
   const handlePageClick = (event) => {
-    setCurrentPage(event.selected + 1);
+    setCurrentPage(event.selected);
   };
 
   return (
     <>
       <div className="relative flex w-full justify-center overflow-hidden">
-        <div className="absolute left-4 top-4 z-10">
+        <div className="absolute left-4 top-4 z-20">
           <Link to={"/"}>
             <Button className="bg-white hover:bg-slate-700 hover:text-white">
               To the Home page
@@ -106,7 +106,7 @@ const Search = () => {
           </Link>
         </div>
         <div className="center-border-radius relative flex h-[450px] w-[1500px] items-center bg-gradient-to-t from-orange-400 to-orange-300">
-          <div className="relative left-20 -top-10 text-start text-7xl font-semibold">
+          <div className="relative left-20 -top-10 text-start text-7xl font-semibold md:text-6xl sm:left-10 sm:text-5xl">
             <div className="text-white">
               <div className="text-slate-700">Find a new friend</div>
               <div>today!</div>
@@ -116,11 +116,11 @@ const Search = () => {
             draggable="false"
             src={darkCat}
             alt="dark cat"
-            className="relative h-[800px] w-auto scale-x-[-1]"
+            className="relative h-[800px] w-auto scale-x-[-1] object-cover md:h-[600px] sm:h-[450px]"
           />
         </div>
       </div>
-      <div className="relative -top-20 z-10 flex max-w-xl">
+      <div className="relative -top-20 z-10 max-w-xl px-4">
         <SearchBar
           onSearch={setSearchParams}
           options={options}
@@ -128,28 +128,31 @@ const Search = () => {
           placeholder="Search Cat, Dog, Black etc."
         />
       </div>
+
       {isDataLoading ? (
         <Spinner />
       ) : (
-        <div className="grid grid-cols-5 gap-8">
+        <div className="grid grid-cols-5 items-center justify-center gap-8 xl:grid-cols-4 xl:gap-4 lg:grid-cols-3 lg:gap-2 md:grid-cols-2 sm:grid-cols-1">
           {pets.animals?.map((animal) => {
             return <Card key={animal.id} data={animal} />;
           })}
         </div>
       )}
+
       <ReactPaginate
         containerClassName={"container"}
         activeLinkClassName={"item active"}
         nextLinkClassName={"item"}
         previousLinkClassName={"item"}
         pageLinkClassName={"item"}
-        breakLabel="..."
+        breakLabel=""
         nextLabel="next"
         previousLabel="previous"
         onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        marginPagesDisplayed={2}
-        pageCount={!pets ? 0 : pets.pagination?.total_pages}
+        pageRangeDisplayed={5}
+        marginPagesDisplayed={1}
+        forcePage={currentPage}
+        pageCount={pets.pagination?.total_pages}
         renderOnZeroPageCount={null}
       />
     </>

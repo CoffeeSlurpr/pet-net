@@ -6,7 +6,7 @@ const Card = ({ data }) => {
   return (
     <Link to={`/pet/${data.id}`}>
       <div
-        className={`card-shadow relative flex h-72 w-52 items-center justify-center overflow-hidden rounded-3xl bg-cover bg-center text-white transition duration-150 hover:rotate-2 hover:scale-110 hover:ease-in-out ${
+        className={`card-shadow relative m-5 flex h-72 w-52 items-center justify-center overflow-hidden rounded-3xl bg-cover bg-center text-white transition duration-150 hover:rotate-2 hover:scale-110 hover:ease-in-out sm:h-96 sm:w-72 ${
           !data.primary_photo_cropped && "bg-noImage"
         }`}
         style={{

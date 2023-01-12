@@ -8,17 +8,18 @@ import Button from "./Button";
 const breakpoints = {
   slidesPerView: 1,
   spaceBetween: 0,
-  1850: {
+  1728: {
     slidesPerView: 5,
   },
-  1520: {
+  1535: {
     slidesPerView: 4,
   },
-  1185: {
+  1150: {
     slidesPerView: 3,
   },
-  1030: {
+  800: {
     slidesPerView: 2,
+    spaceBetween: 20,
   },
 };
 
@@ -26,10 +27,15 @@ const Slider = ({ items }) => {
   const swiperRef = useRef();
 
   return (
-    <div className="relative flex w-3/4 items-center justify-center">
-      <Button onClick={() => swiperRef.current.slidePrev()}>{"<"}</Button>
+    <div className="relative m-5 flex w-3/4 items-center justify-center sm:w-full">
+      <Button
+        className="sm:hidden"
+        onClick={() => swiperRef.current.slidePrev()}
+      >
+        {"<"}
+      </Button>
       <Swiper
-        className="h-96 w-full"
+        className="h-full w-full"
         breakpoints={breakpoints}
         modules={[Navigation]}
         onSlideChange={() => console.log("slide change")}
@@ -41,14 +47,19 @@ const Slider = ({ items }) => {
           return (
             <SwiperSlide
               key={item.id}
-              className="flex items-center justify-center overflow-hidden object-cover p-5"
+              className="flex items-center justify-center overflow-hidden object-cover"
             >
               <Card data={item} />
             </SwiperSlide>
           );
         })}
       </Swiper>
-      <Button onClick={() => swiperRef.current.slideNext()}>{">"}</Button>
+      <Button
+        className="sm:hidden"
+        onClick={() => swiperRef.current.slideNext()}
+      >
+        {">"}
+      </Button>
     </div>
   );
 };

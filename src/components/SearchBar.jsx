@@ -75,7 +75,9 @@ const SearchBar = ({
     >
       <div className="relative w-full drop-shadow-lg">
         {/* Search Input */}
-        <div className="absolute mt-[10px] ml-3 h-4 text-slate-500">{icon}</div>
+        <div className="absolute mt-[10px] ml-3 h-4 text-slate-500 sm:mt-2">
+          {icon}
+        </div>
         <input
           onClick={() => setIsOpen(true)}
           type="text"
@@ -83,7 +85,7 @@ const SearchBar = ({
           onChange={handleSearchChange}
           value={query}
           autoComplete="off"
-          className={`w-full rounded-full rounded-r-none border-none p-3 px-14 font-semibold text-slate-500 outline-none ring-1 ring-slate-400 focus:ring-2 focus:ring-slate-500 ${inputClassName}`}
+          className={`w-full rounded-full rounded-r-none border-none p-3 px-14 font-semibold text-slate-500 outline-none ring-1 ring-slate-400 focus:ring-2 focus:ring-slate-500 sm:text-xs ${inputClassName}`}
         />
 
         {/* Search Dropdown */}

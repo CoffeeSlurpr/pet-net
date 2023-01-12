@@ -10,7 +10,7 @@
 
 html,
 body {
-  @apply h-full bg-peach-cream-100;
+  @apply h-full overflow-x-hidden bg-peach-cream-100;
 }
 
 .left-border-radius {
@@ -37,15 +37,9 @@ body {
 }
 
 .container {
-  @apply flex h-36 w-1/3 items-center justify-center space-x-4 font-medium;
+  @apply flex h-36 w-1/3 items-center justify-center space-x-4 font-medium md:space-x-2;
 }
 
 .active {
   @apply bg-orange-400 shadow-orange-300;
-}
-
-/* swiper */
-
-.swiper {
-  @apply p-5 !important;
 }

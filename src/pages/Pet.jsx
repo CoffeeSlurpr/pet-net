@@ -80,7 +80,7 @@ const Pet = () => {
               Go Back
             </Button>
           </div>
-          <div className="right-border-radius relative my-4 flex h-[380px] w-[1200px] items-center justify-center gap-20 bg-gradient-to-t from-orange-400 to-orange-300">
+          <div className="right-border-radius relative my-4 flex h-[380px] w-[1200px] items-center justify-center gap-20 bg-gradient-to-t from-orange-400 to-orange-300 md:flex-col md:gap-10">
             <img
               src={
                 pet.primary_photo_cropped
@@ -88,18 +88,16 @@ const Pet = () => {
                   : noImage
               }
               alt="petpic"
-              className="relative top-8 aspect-square w-96 rounded-full object-cover"
+              className="relative top-8 aspect-square w-96 rounded-full object-cover lg:w-72"
             />
 
-            <div className="top-1/3 left-36 text-6xl font-semibold text-slate-700">
+            <div className="top-1/3 left-36 text-6xl font-semibold text-slate-700 lg:text-5xl">
               Meet <span className="text-white">{pet.name}</span>
             </div>
           </div>
 
-          <div className="mt-10 w-1/2 space-y-4 pb-72 text-slate-700">
-            <div className="text-5xl font-semibold">About</div>
-
-            <div className="float-right w-[350px] space-y-4 rounded-2xl bg-gradient-to-t from-orange-400 to-orange-300 p-4 text-center text-slate-700">
+          <div className="mt-10 w-1/2 space-y-4 pb-72 text-slate-700 xl:flex xl:w-full xl:flex-col xl:items-center xl:gap-4">
+            <div className="float-right mb-10 w-fit min-w-[350px] space-y-4 rounded-2xl bg-gradient-to-t from-orange-400 to-orange-300 p-4 text-center text-slate-700">
               <div className="text-4xl font-semibold">Contact</div>
               <div className="flex flex-col items-center justify-center space-y-2">
                 {pet.contact.email !== null && (
@@ -108,11 +106,13 @@ const Pet = () => {
                     <div>{pet.contact.email}</div>
                   </div>
                 )}
+
                 {pet.contact.phone !== null && (
                   <div className="flex gap-4">
                     <PhoneIcon height={"28px"} /> <div>{pet.contact.phone}</div>
                   </div>
                 )}
+
                 {pet.contact.address.city !== null && (
                   <div className="flex gap-4">
                     <HomeIcon height={"28px"} />
@@ -131,57 +131,61 @@ const Pet = () => {
                 </a>
               </div>
             </div>
-            {pet.breeds && (
-              <div>
-                <p className="text-2xl font-semibold">Breed</p>
-                <div className="text-lg">{displayBreedCheck()}</div>
-              </div>
-            )}
-            {pet.colors.primary && (
-              <div>
-                <p className="text-2xl font-semibold">Color</p>
-                <p className="text-lg">{pet.colors.primary}</p>
-              </div>
-            )}
-            {pet.gender && (
-              <div>
-                <p className="text-2xl font-semibold">Gender</p>
-                <p className="text-lg">{pet.gender}</p>
-              </div>
-            )}
-            {pet.size && (
-              <div>
-                <p className="text-2xl font-semibold">Size</p>
-                <p className="text-lg">{pet.size}</p>
-              </div>
-            )}
-            {pet.status && (
-              <div>
-                <p className="text-2xl font-semibold">Status</p>
-                <p className="text-lg">{pet.status}</p>
-              </div>
-            )}
-            {pet.description && (
-              <div>
-                <p className="text-2xl font-semibold">Description</p>
-                <p className="text-lg">{decode(pet.description)}</p>
-              </div>
-            )}
-            {pet.tags.length > 0 && (
-              <div>
-                <p className="text-2xl font-semibold">Other attributes</p>
-                <p className="text-lg">
-                  {pet.tags.map((attr, index) => {
-                    return (
-                      <span key={index}>
-                        {attr}
-                        {index + 1 !== pet.tags.length ? " - " : ""}
-                      </span>
-                    );
-                  })}
-                </p>
-              </div>
-            )}
+
+            <div className="space-y-2 p-5">
+              <div className="text-5xl font-semibold">About</div>
+              {pet.breeds && (
+                <div>
+                  <p className="text-2xl font-semibold">Breed</p>
+                  <div className="text-lg">{displayBreedCheck()}</div>
+                </div>
+              )}
+              {pet.colors.primary && (
+                <div>
+                  <p className="text-2xl font-semibold">Color</p>
+                  <p className="text-lg">{pet.colors.primary}</p>
+                </div>
+              )}
+              {pet.gender && (
+                <div>
+                  <p className="text-2xl font-semibold">Gender</p>
+                  <p className="text-lg">{pet.gender}</p>
+                </div>
+              )}
+              {pet.size && (
+                <div>
+                  <p className="text-2xl font-semibold">Size</p>
+                  <p className="text-lg">{pet.size}</p>
+                </div>
+              )}
+              {pet.status && (
+                <div>
+                  <p className="text-2xl font-semibold">Status</p>
+                  <p className="text-lg">{pet.status}</p>
+                </div>
+              )}
+              {pet.description && (
+                <div>
+                  <p className="text-2xl font-semibold">Description</p>
+                  <p className="text-lg">{decode(pet.description)}</p>
+                </div>
+              )}
+              {pet.tags.length > 0 && (
+                <div>
+                  <p className="text-2xl font-semibold">Other attributes</p>
+                  <p className="text-lg">
+                    {pet.tags.map((attr, index) => {
+                      return (
+                        <span key={index}>
+                          {attr}
+                          {index + 1 !== pet.tags.length ? " - " : ""}
+                        </span>
+                      );
+                    })}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </>
       )}

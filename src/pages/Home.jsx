@@ -64,9 +64,9 @@ const Home = () => {
               <img
                 src={puppy}
                 alt="puppy"
-                className="absolute right-[325px] top-[-110px] h-[800px] w-auto scale-x-[-1] xl:static xl:right-0 xl:top-0"
+                className="absolute right-[325px] top-[-110px] h-[800px] w-auto scale-x-[-1] xl:static xl:right-0 xl:top-0 sm:h-[700px]"
               />
-              <div className="absolute right-[100px] top-[150px] text-center text-6xl font-semibold xl:static xl:right-0 xl:top-0">
+              <div className="absolute right-[100px] top-[150px] text-center text-6xl font-semibold xl:static xl:right-0 xl:top-0 md:text-5xl">
                 <div className="text-white">
                   <div className="text-slate-700">I'm looking</div>
                   <div>for a family</div>
@@ -79,12 +79,12 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="flex w-1/2 flex-col items-center justify-center py-16 text-center text-slate-700 xl:w-full">
-              <div className="w-3/4 pb-3 text-5xl font-semibold">
+            <div className="flex w-1/2 flex-col items-center justify-center py-20 text-center text-slate-700 xl:w-full">
+              <div className="w-3/4 pb-3 text-5xl font-semibold md:text-4xl">
                 Our mission
               </div>
-              <div className="w-3/4 text-2xl">
-                <div className="text font-semiboldw-3/4">
+              <div className="w-3/4 text-2xl md:text-xl">
+                <div className="text font-semibold">
                   Our mission is to make our pets' life meowch better!
                 </div>
                 <div>
@@ -97,11 +97,11 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="w-full lg:w-3/4 sm:w-1/2">
+          <div className="w-full">
             <div className="space-y-12 pb-72">
               <div className="flex flex-col items-center space-y-4">
-                <div className="space-y-1 text-center text-slate-700">
-                  <div className="pb-2 text-5xl font-semibold">
+                <div className="space-y-1 text-center text-slate-700 sm:w-3/4">
+                  <div className="pb-2 text-5xl font-semibold md:text-4xl">
                     Find a smol cuddle buddy
                   </div>
                   <div>
@@ -113,9 +113,9 @@ const Home = () => {
                 <Slider items={cats} />
               </div>
 
-              <div className="flex flex-col items-center space-y-8">
-                <div className="w-1/2 space-y-2 text-center text-slate-700">
-                  <div className="text-5xl font-semibold">
+              <div className="flex flex-col items-center space-y-4">
+                <div className="space-y-1 text-center text-slate-700 sm:w-3/4">
+                  <div className="text-5xl font-semibold md:text-4xl">
                     Find a loyal companion
                   </div>
                   <div>
